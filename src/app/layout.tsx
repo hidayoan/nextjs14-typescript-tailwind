@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import StyledComponentsRegistry from '@/lib/AntdRegistry'
-import MainLayout from '@/layout/MainLayout'
 
 
 const inter = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
@@ -20,11 +19,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} m-0`}>
+      <body className={`${inter.className} m-0 transition-all duration-300`}>
         <StyledComponentsRegistry>
-          <MainLayout>
-            {children}
-          </MainLayout>
+          {children}
         </StyledComponentsRegistry>
       </body>
     </html>

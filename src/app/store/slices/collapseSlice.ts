@@ -25,4 +25,4 @@ export const collapseSlice = createSlice({
 
 export const { setCollapse } = collapseSlice.actions
 
-export default collapseSlice.reducer
+export const collapseReducer = collapseSlice.reducer
