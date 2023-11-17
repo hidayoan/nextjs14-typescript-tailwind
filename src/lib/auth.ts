@@ -1,4 +1,5 @@
-import { loginUser, getUser } from "@/FirebaseProvider/user";
+// import { loginUser, getUser } from "@/FirebaseProvider/user";
+import { getUser, loginUser } from "@/service/auth.service";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -20,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const res = await loginUser(credentials as any);
-          if (res) {
+          if (res.status === 200) {
             return res as any;
           } else {
             return null;

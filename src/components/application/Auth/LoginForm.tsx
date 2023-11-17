@@ -4,6 +4,7 @@ import { useState } from "react";
 import ClientAuthFormWrapper from "./ClientAuthFormWrapper";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // client side to add interactivity using local state
 export default function LoginForm() {
@@ -54,6 +55,11 @@ export default function LoginForm() {
           >
             Login
           </Button>
+        </div>
+        <div className="w-full">
+          <Link href="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
         </div>
       </div>
     </ClientAuthFormWrapper>

@@ -3,22 +3,21 @@ import { Button, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ClientAuthFormWrapper from "./ClientAuthFormWrapper";
+import Link from "next/link";
+import axios from "axios";
 
 // client side to add interactivity using local state
 export default function RegisterForm() {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
+    name: "",
   })
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const handleRegister = async () => {
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formValue)
-      })
+      const res = await axios.post('/api/auth/register', formValue)
       router.push('/login')
     } catch (error) {
       console.log(error);
@@ -28,6 +27,14 @@ export default function RegisterForm() {
   return (
     <ClientAuthFormWrapper>
       <div className="flex flex-col w-[40rem] gap-6">
+        <div className="flex flex-row items-center">
+          <div className="font-bold w-40">
+            Name
+          </div>
+          <Input className="p-3"
+            placeholder="Name" value={formValue.name} onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
+          />
+        </div>
         <div className="flex flex-row items-center">
           <div className="font-bold w-40">
             Email
@@ -52,6 +59,12 @@ export default function RegisterForm() {
           >
             Register
           </Button>
+        </div>
+
+        <div className="w-full">
+          <Link href="/login" className="text-blue-500 hover:underline">
+            Login
+          </Link>
         </div>
       </div>
     </ClientAuthFormWrapper>
