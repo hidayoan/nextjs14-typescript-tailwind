@@ -26,4 +26,4 @@ export async function middleware(req: any) {
   return NextResponse.next();
 }
 
-export const config = { matcher: ["/", '/login', '/register', '/api/auth/:path*'] };
+export const config = { matcher: ["/", '/login', '/register', '/api/auth/chat'] }

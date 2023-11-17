@@ -20,7 +20,6 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const res = await loginUser(credentials as any);
-
           if (res) {
             return res as any;
           } else {
