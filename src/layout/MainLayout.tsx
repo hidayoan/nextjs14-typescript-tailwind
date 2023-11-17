@@ -37,8 +37,6 @@ function MainLayoutContent({ children }: MainLayoutProps) {
         </div>
       </div>
     </div>
-
-
   )
 }
 

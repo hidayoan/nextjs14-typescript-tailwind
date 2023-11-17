@@ -1,7 +1,10 @@
 import { DashboardView } from "@/view";
 
-export default function Home() {
+
+export default async function Home() {
   return (
-    <DashboardView />
+    <div>
+      <DashboardView />
+    </div>
   )
 }

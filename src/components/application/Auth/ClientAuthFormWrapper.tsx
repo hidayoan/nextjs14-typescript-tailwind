@@ -1,12 +1,13 @@
 "use client";
 
 import ReduxProvider from "@/app/store/ReduxProvider";
-import LoginForm from "./LoginForm";
 
-export default function ClientLoginFormWrapper() {
+export default function ClientAuthFormWrapper(
+  { children }: { children: React.ReactNode }
+) {
   return (
     <ReduxProvider>
-      <LoginForm />
+      {children}
     </ReduxProvider>
   );
 }

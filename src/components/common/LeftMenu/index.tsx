@@ -7,9 +7,9 @@ import './styles.scss'
 import ReduxProvider from '@/app/store/ReduxProvider'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { setCollapse } from '@/app/store/slices/collapseSlice'
-import { stat } from 'fs'
 import { setDarkmode } from '@/app/store/slices/darkmodeSlice'
 import { usePathname, useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 
 const MAIN_MENU = [
   {
@@ -50,6 +50,8 @@ function LeftMenu() {
   const dispatch = useAppDispatch();
   const pathname = usePathname()
   const router = useRouter()
+
+
   const isCollapsedStore = useAppSelector(state => {
     return state.collapse.value
   })
@@ -57,23 +59,6 @@ function LeftMenu() {
   const isDarkmode = useAppSelector(state => {
     return state.darkmode.value
   })
-
-  useEffect(() => {
-    MAIN_MENU.forEach(item => {
-      if (pathname === '/') {
-        setCurrentPos(0)
-        setBoxPos(0)
-      }
-      else {
-        if (item.route !== '/') {
-          if (pathname.includes(item.route)) {
-            setCurrentPos(item.i)
-            setBoxPos(item.i * 3 + (item.i > 0 ? 0.25 * item.i : 0))
-          }
-        }
-      }
-    })
-  }, [pathname])
 
 
   useEffect(() => {
@@ -98,6 +83,10 @@ function LeftMenu() {
 
   const handleChangeDarkmode = () => {
     dispatch(setDarkmode(!isDarkmode))
+  }
+
+  const handleSignOut = async () => {
+    await signOut()
   }
 
   const handleChangeRoute = (route: string) => {
@@ -164,6 +153,7 @@ function LeftMenu() {
             }
             <div className='w-full bg-slate-300 h-[1px]' />
             <div className={`group flex items-center justify-start px-r-4 w-full cursor-pointer rounded-md transition-all z-10 mt-2 mb-1`}
+              onClick={handleSignOut}
               onMouseEnter={() => {
                 setBoxPos(10.5)
               }}

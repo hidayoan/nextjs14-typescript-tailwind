@@ -1,29 +1,27 @@
 "use client";
 import { Button, Input } from "antd";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ClientAuthFormWrapper from "./ClientAuthFormWrapper";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 // client side to add interactivity using local state
-export default function LoginForm() {
-  const router = useRouter()
+export default function RegisterForm() {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   })
   const [isLoading, setIsLoading] = useState(false)
-
-  const handleLogin = async () => {
+  const router = useRouter()
+  const handleRegister = async () => {
     try {
-      await signIn('credentials', {
-        redirect: false,
-        email: formValue.email,
-        password: formValue.password,
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formValue)
       })
-      router.push('/')
+      router.push('/login')
     } catch (error) {
-
+      console.log(error);
     }
   }
 
@@ -49,10 +47,10 @@ export default function LoginForm() {
         <div className="w-full">
           <Button
             className="w-full h-14 bg-slate-800 text-white font-medium text-lg"
-            onClick={handleLogin}
+            onClick={handleRegister}
             loading={isLoading}
           >
-            Login
+            Register
           </Button>
         </div>
       </div>
